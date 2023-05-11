@@ -26,24 +26,5 @@ namespace CoronaEmployeesInfo.WebApi.Controllers
                 .ToArray();
         }
 
-        //[HttpGet("GetSickPeoplePerDay")]
-        //public ActionResult<IDictionary<string, int>> GetSickPeoplePerDay()
-        //{
-        //    DateTime now = DateTime.Now;
-        //    var z = _coronaContext.Employees
-        //        .Include(x => x.CoronaDetails)
-        //        .Where(x => x.CoronaDetails != null
-        //                    && x.CoronaDetails.Any(cd => cd.InfectionDate!.Value.Month == now.Month
-        //                    && cd.InfectionDate.Value.Year == now.Year)).ToArray();
-        //    return _coronaContext.Employees
-        //        .Include(x => x.CoronaDetails)
-        //        .Where(x => x.CoronaDetails != null
-        //                    && x.CoronaDetails.Any(cd => cd.InfectionDate!.Value.Month == now.Month
-        //                    && cd.InfectionDate.Value.Year == now.Year))
-        //        .GroupBy(x => x.CoronaDetails!.InfectionDate!.Value)
-        //        .ToDictionary(
-        //        k => k.Key.ToShortDateString(),
-        //        v => v.Select(x => x.Id).Distinct().Count());
-        //}
     }
 }
