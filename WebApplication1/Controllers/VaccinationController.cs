@@ -20,11 +20,15 @@ namespace CoronaEmployeesInfo.WebApi.Controllers
         [HttpGet("{emplyeeId}")]
         public ActionResult<IEnumerable<VaccineInfo>> Get(string emplyeeId)
         {
-            return _coronaContext.Employees
+            var vac= _coronaContext.Employees
                 .Include(x => x!.VaccineInfos)
                 .Where(x => x.Id == emplyeeId)
                 .SelectMany(x => x.VaccineInfos!)
                 .ToArray();
+            if(vac.Count()==0)
+                return BadRequest("The employee wasnot vaccinated");
+            return vac;
+
         }
 
         // GET api/<EmployeeController>/5
@@ -43,7 +47,7 @@ namespace CoronaEmployeesInfo.WebApi.Controllers
                 return BadRequest("Employee was already four times vaccinated");
             vaccineInfo.EmployeeId = emplyeeId;
             vaccineInfo.Employee = default!;
-            var employee = _coronaContext.Employees.FirstOrDefault(x => x.Id == emplyeeId);
+            //var employee = _coronaContext.Employees.FirstOrDefault(x => x.Id == emplyeeId);
             //employee.VaccineInfos.Add(vaccineInfo);
             await _coronaContext.VaccinesInfo.AddAsync(vaccineInfo);
             await _coronaContext.SaveChangesAsync();
